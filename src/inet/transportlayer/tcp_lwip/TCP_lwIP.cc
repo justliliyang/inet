@@ -164,7 +164,8 @@ void TCP_lwIP::handleIpInputMessage(Packet *packet)
 
     size_t totalTcpLen = maxBufferSize - ipHdrLen;
 
-    const auto& bytes = packet->peekDataAt<BytesChunk>(bit(0), bit(packet->getBitLength()));
+    const auto& x = packet->peekAt(packet->getHeaderPopOffset(), bit(packet->getBitLength()));     //FIXME KLUDGE
+    const auto& bytes = x->peek<BytesChunk>(bit(0), bit(x->getChunkLength()));
     totalTcpLen = bytes->getBytes((uint8_t *)data + ipHdrLen, totalTcpLen);
 
     size_t totalIpLen = ipHdrLen + totalTcpLen;
