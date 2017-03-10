@@ -26,8 +26,9 @@ namespace inet;
 
 enum CrcMode
 {
-    CRC_DECLARED_CORRECT = 0;
-    CRC_DECLARED_INCORRECT  = 1;
-    CRC_COMPUTED = 2;
+    CRC_OFF = 0;
+    CRC_COMPUTED = 1;
+    CRC_DECLARED_CORRECT = 2;
+    CRC_DECLARED_INCORRECT  = 3;
 }
 

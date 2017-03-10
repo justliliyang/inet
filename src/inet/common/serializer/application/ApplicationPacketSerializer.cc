@@ -27,14 +27,15 @@ void ApplicationPacketSerializer::serialize(ByteOutputStream& stream, const std:
 {
     const auto& applicationPacket = std::static_pointer_cast<const ApplicationPacket>(chunk);
     stream.writeUint8(applicationPacket->getSequenceNumber());
-    // TODO: what if chunk size is set to something else
+    stream.writeByteRepeatedly('?', byte(applicationPacket->getChunkLength() - byte(1)).get());
 }
 
 std::shared_ptr<Chunk> ApplicationPacketSerializer::deserialize(ByteInputStream& stream) const
 {
     auto applicationPacket = std::make_shared<ApplicationPacket>();
     applicationPacket->setSequenceNumber(stream.readUint8());
-    // TODO: what if chunk size is set to something else
+    byte length = byte(stream.getRemainingSize());
+    stream.readByteRepeatedly('?', byte(length).get());
     return applicationPacket;
 }
 

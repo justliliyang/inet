@@ -27,6 +27,7 @@ namespace serializer {
 /**
  * Calculates checksum.
  */
+// TODO: move
 class INET_API TCPIPchecksum
 {
   public:
